@@ -1,0 +1,146 @@
+[
+  {
+    "CategoryId": 1,
+    "title": "Besi As 82",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-as-82.jpeg?alt=media&token=ce55410e-506d-4fa8-b412-3377a56518ae",
+    "spec": "Panjang 82",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 2,
+    "title": "Besi Behel Ulir 280",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-behel-ulir-280.jpeg?alt=media&token=f336e201-c6d1-46a8-b5a1-8354df914e91",
+    "spec": "Panjang 280",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 3,
+    "title": "Besi CMP 360",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-cmp-360.jpeg?alt=media&token=3409f758-46a9-4fe5-964f-4c72170f42bc",
+    "spec": "Panjang 380",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 4,
+    "title": "Besi IWF 95",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-iwf-95.jpeg?alt=media&token=c033cd10-0603-4fd6-ba98-f343426be5fc",
+    "spec": "Panjang 95",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 5,
+    "title": "Besi Pipa Galvanis 130",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-pipa-galvanis-130.jpeg?alt=media&token=a4e74063-6bdc-4096-b5a8-284c4774880b",
+    "spec": "Panjang 130",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 5,
+    "title": "Besi Pipa Galvanis 183",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-pipa-galvanis-130.jpeg?alt=media&token=a4e74063-6bdc-4096-b5a8-284c4774880b",
+    "spec": "Panjang 183",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 6,
+    "title": "Besi Plat 38",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-plat-38.jpeg?alt=media&token=9fd4c3c1-4128-4df8-bc3d-e8ed028ef0ae",
+    "spec": "Panjang 38",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 7,
+    "title": "Besi Siku 75",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-plat-38.jpeg?alt=media&token=9fd4c3c1-4128-4df8-bc3d-e8ed028ef0ae",
+    "spec": "Panjang 75",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 7,
+    "title": "Besi Siku 160",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-siku-160.jpeg?alt=media&token=bc81f44d-b247-4c64-9312-9380146875d4",
+    "spec": "Panjang 160",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 7,
+    "title": "Besi Siku Double 200",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-siku-double-200.jpeg?alt=media&token=95f9a6bf-0075-43d0-a834-6e7973e36add",
+    "spec": "Panjang 200",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 8,
+    "title": "Besi UMP 93",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-ump-93.jpeg?alt=media&token=98160bbe-2eb2-4bd3-9054-3865f25b8103",
+    "spec": "Panjang 93",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 8,
+    "title": "Besi UMP 117",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-ump-117.jpeg?alt=media&token=9e7b46c4-730f-4887-82c6-c6a2be02c2fd",
+    "spec": "Panjang 117",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 8,
+    "title": "Besi UMP 184",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-ump-184.jpeg?alt=media&token=567e8d04-f4ef-4db5-9db3-bc71070c526e",
+    "spec": "Panjang 184",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 9,
+    "title": "Per Mobil 62",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/besi-ump-184.jpeg?alt=media&token=567e8d04-f4ef-4db5-9db3-bc71070c526e",
+    "spec": "Panjang 62",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 9,
+    "title": "Per Mobil 65",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/per-mobil-65.jpeg?alt=media&token=efa7717e-ec0b-435e-b3c8-5523e7f78b09",
+    "spec": "Panjang 65",
+    "price": 100000,
+    "status": "ready"
+  },
+  {
+    "CategoryId": 9,
+    "title": "Per Mobil 87",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/per-mobil-65.jpeg?alt=media&token=efa7717e-ec0b-435e-b3c8-5523e7f78b09",
+    "spec": "Panjang 87",
+    "price": 100000,
+    "status": "sold_out"
+  },
+  {
+    "CategoryId": 9,
+    "title": "Per Mobil 90",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/per-mobil-90.jpeg?alt=media&token=ac0aeefe-83c2-4e9c-93af-8057496d8a60",
+    "spec": "Panjang 90",
+    "price": 100000,
+    "status": "sold_out"
+  },
+  {
+    "CategoryId": 10,
+    "title": "Seling Putih 5000",
+    "image": "https://firebasestorage.googleapis.com/v0/b/iproject-d9d4c.appspot.com/o/seling-putih-5000.jpeg?alt=media&token=da4e24e8-ff2b-49b2-a180-52b5dc953915",
+    "spec": "Panjang 5000",
+    "price": 100000,
+    "status": "sold_out"
+  }
+]
