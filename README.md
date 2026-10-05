@@ -98,11 +98,10 @@ In the heavy industrial scrap market (pabrik manufaktur, BUMN, galangan kapal, d
 │   │   └── response/response.go     # Standardized JSON Envelopes
 │   └── README.md                    # Dedicated Backend Documentation
 │
-├── fsjs-p2-v1-iproject-client-fransalwan/   # Frontend B2B Portal & Field PWA (Vue 3)
-│   └── iproject_client/
-│       ├── src/views/HomePage.vue   # Live Tender Board, Weighbridge Simulator, & SCF Calc
-│       ├── src/components/Navbar.vue# High-Density B2B Navigation
-│       └── src/stores/mainStore.js  # Pinia Store State Management
+├── frontend/                        # Frontend B2B Portal & Field PWA (Vue 3 + Vite)
+│   ├── src/views/HomePage.vue       # Live Tender Board, Weighbridge Simulator, & SCF Calc
+│   ├── src/components/Navbar.vue    # High-Density B2B Navigation
+│   └── src/stores/mainStore.js      # Pinia Store State Management
 │
 └── README.md                        # Project Overview & Portfolio Specification
 ```
@@ -146,7 +145,7 @@ go run cmd/api/main.go
 
 ### 2. Frontend (Vue 3 / Vite)
 ```bash
-cd fsjs-p2-v1-iproject-client-fransalwan/iproject_client
+cd frontend
 npm install
 npm run dev
 # Dashboard opens on http://localhost:5173
