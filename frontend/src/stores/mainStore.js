@@ -7,6 +7,7 @@ const baseUrl = "http://localhost:8080/api/v1";
 
 export const useMainStore = defineStore("main", {
   state: () => ({
+    theme: localStorage.getItem("scrapflow_theme") || "dark",
     isLogin: localStorage.getItem("access_token") ? true : false,
     user: {
       email: localStorage.getItem("user_email") || "",
@@ -19,6 +20,31 @@ export const useMainStore = defineStore("main", {
     loading: false,
   }),
   actions: {
+    initTheme() {
+      const saved = localStorage.getItem("scrapflow_theme") || "dark";
+      this.theme = saved;
+      this.applyTheme(saved);
+    },
+
+    toggleTheme() {
+      this.theme = this.theme === "dark" ? "light" : "dark";
+      localStorage.setItem("scrapflow_theme", this.theme);
+      this.applyTheme(this.theme);
+      toast.success(this.theme === "dark" ? "Mode Gelap Aktif" : "Mode Terang Aktif", {
+        description: `Tampilan dialihkan ke ${this.theme === "dark" ? "Dark Mode" : "Light Mode"}.`,
+      });
+    },
+
+    applyTheme(theme) {
+      if (theme === "light") {
+        document.documentElement.classList.add("light");
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+        document.documentElement.classList.remove("light");
+      }
+    },
+
     async handleLogin(email, password) {
       this.loading = true;
       try {
@@ -81,10 +107,20 @@ export const useMainStore = defineStore("main", {
     },
 
     handleLogout() {
-      localStorage.clear();
+      // Hapus token sesi login tanpa menghapus preferensi tema
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("user_email");
+      localStorage.removeItem("user_name");
+      localStorage.removeItem("user_role");
+      localStorage.removeItem("company_name");
+
       this.isLogin = false;
       this.user = { email: "", fullName: "", role: "", companyName: "" };
-      toast.info("Anda telah keluar dari sistem.");
+
+      toast.info("Sesi Berakhir", {
+        description: "Anda telah berhasil keluar dari sistem ScrapFlow.",
+      });
+
       router.push("/login");
     },
 

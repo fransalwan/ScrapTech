@@ -2,22 +2,13 @@
 import { mapActions, mapState } from "pinia";
 import { useMainStore } from "../stores/mainStore";
 import { RouterLink } from "vue-router";
-import { LogOut, User, Building2, ShieldCheck, Sun, Moon, RefreshCw, ChevronDown } from "lucide-vue-next";
+import { LogOut, User, Building2, ShieldCheck, Sun, Moon } from "lucide-vue-next";
 
 export default {
   name: "Navbar",
-  components: { RouterLink, LogOut, User, Building2, ShieldCheck, Sun, Moon, RefreshCw, ChevronDown },
-  data() {
-    return {
-      highContrast: false,
-    };
-  },
+  components: { RouterLink, LogOut, User, Building2, ShieldCheck, Sun, Moon },
   methods: {
-    ...mapActions(useMainStore, ["handleLogout", "handleLogin"]),
-    toggleContrast() {
-      this.highContrast = !this.highContrast;
-      document.documentElement.classList.toggle("high-contrast-mode", this.highContrast);
-    },
+    ...mapActions(useMainStore, ["handleLogout", "handleLogin", "toggleTheme"]),
     quickSwitchRole(role) {
       if (role === "PABRIK_MANAGER") {
         this.handleLogin("budi@krakatausteel.co.id", "password123");
@@ -28,20 +19,20 @@ export default {
       }
     },
     getRoleLabel(role) {
-      if (role === "PABRIK_MANAGER") return "Pabrik / Seller";
+      if (role === "PABRIK_MANAGER") return "Pabrik / Penyedia";
       if (role === "LAPAK_OWNER") return "Juragan Lapak";
       if (role === "WEIGH_OPERATOR") return "Petugas Timbangan";
       return role || "Tamu";
     },
   },
   computed: {
-    ...mapState(useMainStore, ["isLogin", "user"]),
+    ...mapState(useMainStore, ["isLogin", "user", "theme"]),
   },
 };
 </script>
 
 <template>
-  <nav class="bg-slate-900 border-b border-slate-800 text-slate-100 sticky top-0 z-40 backdrop-blur-md bg-slate-900/95">
+  <nav class="bg-slate-900 border-b border-slate-800 text-slate-100 sticky top-0 z-40 backdrop-blur-md bg-slate-900/95 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         
@@ -54,7 +45,7 @@ export default {
             <div>
               <span class="text-lg sm:text-xl font-bold tracking-tight text-white">Scrap<span class="text-emerald-400">Flow</span></span>
               <span class="hidden sm:inline-block ml-2 px-2 py-0.5 text-[10px] font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800 rounded-full uppercase tracking-wider">
-                Fintech B2B
+                Fintech Komoditas
               </span>
             </div>
           </RouterLink>
@@ -82,17 +73,20 @@ export default {
           </a>
         </div>
 
-        <!-- User Controls / Auth -->
-        <div class="flex items-center space-x-2.5">
+        <!-- Controls: Theme Toggle & User Auth -->
+        <div class="flex items-center space-x-2 sm:space-x-2.5">
           
-          <!-- Mode Kontras Lapangan Toggle -->
+          <!-- Theme Toggle (Light / Dark Mode) -->
           <button
-            @click="toggleContrast"
-            title="Mode Kontras Lapangan (Sinar Matahari)"
-            class="p-2 text-slate-400 hover:text-amber-400 hover:bg-slate-800 rounded-lg transition"
+            @click="toggleTheme"
+            :title="theme === 'dark' ? 'Aktifkan Mode Terang (Light Mode)' : 'Aktifkan Mode Gelap (Dark Mode)'"
+            class="px-2.5 py-1.5 text-xs text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl border border-slate-800 transition flex items-center space-x-1.5"
           >
-            <Sun v-if="!highContrast" class="w-4 h-4" />
-            <Moon v-else class="w-4 h-4 text-amber-400" />
+            <Sun v-if="theme === 'dark'" class="w-4 h-4 text-amber-400" />
+            <Moon v-else class="w-4 h-4 text-indigo-500" />
+            <span class="text-[11px] font-semibold">
+              {{ theme === 'dark' ? 'Mode Terang' : 'Mode Gelap' }}
+            </span>
           </button>
 
           <!-- If Logged In -->
@@ -100,25 +94,25 @@ export default {
             
             <!-- Quick Role Switch Dropdown for Easy Testing -->
             <div class="hidden sm:flex items-center space-x-1 text-[11px] bg-slate-950 border border-slate-800 rounded-lg p-1">
-              <span class="text-slate-500 px-1.5 font-medium">Ganti Peran:</span>
+              <span class="text-slate-500 px-1 font-medium">Peran:</span>
               <button
                 @click="quickSwitchRole('PABRIK_MANAGER')"
-                :class="['px-2 py-0.5 rounded font-semibold transition', user.role === 'PABRIK_MANAGER' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white']"
-                title="Masuk sebagai Pabrik"
+                :class="['px-2 py-0.5 rounded font-semibold transition text-[10px]', user.role === 'PABRIK_MANAGER' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white']"
+                title="Ganti ke Akun Pabrik"
               >
                 Pabrik
               </button>
               <button
                 @click="quickSwitchRole('LAPAK_OWNER')"
-                :class="['px-2 py-0.5 rounded font-semibold transition', user.role === 'LAPAK_OWNER' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white']"
-                title="Masuk sebagai Juragan Lapak"
+                :class="['px-2 py-0.5 rounded font-semibold transition text-[10px]', user.role === 'LAPAK_OWNER' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white']"
+                title="Ganti ke Akun Juragan Lapak"
               >
                 Lapak
               </button>
               <button
                 @click="quickSwitchRole('WEIGH_OPERATOR')"
-                :class="['px-2 py-0.5 rounded font-semibold transition', user.role === 'WEIGH_OPERATOR' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-white']"
-                title="Masuk sebagai Operator Timbangan"
+                :class="['px-2 py-0.5 rounded font-semibold transition text-[10px]', user.role === 'WEIGH_OPERATOR' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-white']"
+                title="Ganti ke Akun Operator Timbangan"
               >
                 Timbangan
               </button>
@@ -143,7 +137,7 @@ export default {
             <!-- Logout Button -->
             <button
               @click="handleLogout"
-              title="Keluar Akun"
+              title="Keluar dari Sistem"
               class="p-2 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded-lg transition"
             >
               <LogOut class="w-4 h-4" />
@@ -154,13 +148,13 @@ export default {
           <div v-else class="flex items-center space-x-2">
             <RouterLink
               to="/login"
-              class="px-3.5 py-1.5 text-xs font-semibold text-slate-200 hover:text-white hover:bg-slate-800 border border-slate-700 rounded-xl transition"
+              class="px-3 py-1.5 text-xs font-semibold text-slate-200 hover:text-white hover:bg-slate-800 border border-slate-700 rounded-xl transition"
             >
               Masuk
             </RouterLink>
             <RouterLink
               to="/register"
-              class="px-3.5 py-1.5 text-xs font-semibold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl shadow-sm transition"
+              class="px-3 py-1.5 text-xs font-semibold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl shadow-sm transition"
             >
               Daftar Usaha
             </RouterLink>
