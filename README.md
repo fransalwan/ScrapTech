@@ -148,7 +148,7 @@ go run cmd/api/main.go
 
 ### 2. Frontend (Vue 3 / Vite)
 ```bash
-cd fsjs-p2-v1-iproject-client-fransalwan/iproject_client
+cd frontend
 npm install
 npm run dev
 # Dashboard opens on http://localhost:5173
@@ -160,6 +160,7 @@ npm run dev
 
 | Method | Endpoint | Description | Idempotency |
 | :--- | :--- | :--- | :---: |
+| `GET` | `/health` | System health, ledger status, & worker state | No |
 | `POST` | `/api/v1/auth/register` | Register Company & KYC profile | No |
 | `POST` | `/api/v1/auth/login` | Authenticate & issue JWT | No |
 | `GET` | `/api/v1/tenders` | List active scrap tenders | No |
@@ -172,6 +173,13 @@ npm run dev
 | `GET` | `/api/v1/ledger/transactions` | Full double-entry audit trail | No |
 | `POST` | `/api/v1/financing/apply` | Apply for PO/SPK Supply Chain Financing | No |
 | `POST` | `/api/v1/financing/:id/disburse`| Disburse loan directly into tender escrow | **Mandatory** |
+| `POST` | `/api/v1/payments/va/create` | Create Bank Virtual Account (BCA/Mandiri/BRI) | No |
+| `POST` | `/api/v1/payments/webhook` | Webhook ingestion with HMAC-SHA256 signature | **Auto** |
+| `POST` | `/api/v1/payments/reconcile` | Trigger manual bank reconciliation audit | No |
+| `POST` | `/api/v1/agents/ocr-slip` | AI OCR slip extraction & tare fraud detector | No |
+| `POST` | `/api/v1/agents/parse-tender` | AI tender specification document parser | No |
+
+---
 
 ---
 

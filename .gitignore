@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+.pnp
+.pnp.js
+
+# Production build outputs
+dist/
+frontend/dist/
+build/
+
+# Go binaries and build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+backend-go/*.exe
+backend-go/scrapflow-api
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+backend-go/.env
+
+# Logs and runtime databases
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# IDE and Editor configs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
