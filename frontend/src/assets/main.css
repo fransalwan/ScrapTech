@@ -5,21 +5,31 @@
 
 /* Base smooth transition for theme switching */
 html, body {
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
 /* ========================================================
-   LIGHT MODE STYLES (DAYLIGHT & HIGH FIELD CONTRAST)
+   1. DARK MODE (DEFAULT FINTECH TERMINAL PALETTE)
+   ======================================================== */
+
+html.dark,
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html.dark body,
+html[data-theme="dark"] body {
+  background-color: #020617;
+  color: #f8fafc;
+}
+
+/* ========================================================
+   2. LIGHT MODE (DAYLIGHT & HIGH-CONTRAST FIELD PALETTE)
    ======================================================== */
 
 html.light,
 html[data-theme="light"] {
   color-scheme: light;
-}
-
-html.dark,
-html[data-theme="dark"] {
-  color-scheme: dark;
 }
 
 html.light,
@@ -30,16 +40,34 @@ html[data-theme="light"] body {
   color: #0f172a !important;
 }
 
-/* Page background */
+/* Page base background */
 html.light [class*="bg-slate-950"],
 html[data-theme="light"] [class*="bg-slate-950"] {
   background-color: #f8fafc !important;
 }
 
-/* Surface backgrounds: Navbar, Cards, Modals */
+/* Elevated surfaces: Cards, Modals, Navbar, Floating panels */
 html.light [class*="bg-slate-900"],
 html[data-theme="light"] [class*="bg-slate-900"] {
   background-color: #ffffff !important;
+}
+
+/* Secondary surface / inner containers */
+html.light [class*="bg-slate-800"],
+html[data-theme="light"] [class*="bg-slate-800"] {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border-color: #e2e8f0 !important;
+}
+
+html.light [class*="hover:bg-slate-800"]:hover,
+html[data-theme="light"] [class*="hover:bg-slate-800"]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+html.light [class*="hover:bg-slate-700"]:hover,
+html[data-theme="light"] [class*="hover:bg-slate-700"]:hover {
+  background-color: #cbd5e1 !important;
 }
 
 /* Borders */
@@ -50,7 +78,7 @@ html[data-theme="light"] [class*="border-slate-700"] {
   border-color: #e2e8f0 !important;
 }
 
-/* Primary text & headings */
+/* Typography contrast */
 html.light [class*="text-white"],
 html.light [class*="text-slate-100"],
 html[data-theme="light"] [class*="text-white"],
@@ -58,7 +86,6 @@ html[data-theme="light"] [class*="text-slate-100"] {
   color: #0f172a !important;
 }
 
-/* Secondary & body text */
 html.light [class*="text-slate-200"],
 html.light [class*="text-slate-300"],
 html[data-theme="light"] [class*="text-slate-200"],
@@ -66,7 +93,6 @@ html[data-theme="light"] [class*="text-slate-300"] {
   color: #334155 !important;
 }
 
-/* Muted text */
 html.light [class*="text-slate-400"],
 html[data-theme="light"] [class*="text-slate-400"] {
   color: #475569 !important;
@@ -79,7 +105,7 @@ html[data-theme="light"] [class*="text-slate-600"] {
   color: #64748b !important;
 }
 
-/* Inputs, Selects, Forms */
+/* Form Inputs, Selects & Textareas */
 html.light input:not([type="checkbox"]):not([type="radio"]),
 html.light select,
 html.light textarea,
@@ -98,7 +124,21 @@ html[data-theme="light"] textarea::placeholder {
   color: #94a3b8 !important;
 }
 
-/* Role Capability Banners in Light Mode */
+/* Primary CTA Button (Emerald) in Light Mode */
+html.light button.bg-emerald-500,
+html[data-theme="light"] button.bg-emerald-500,
+html.light [class*="bg-emerald-500"],
+html[data-theme="light"] [class*="bg-emerald-500"] {
+  background-color: #059669 !important;
+  color: #ffffff !important;
+}
+
+html.light button.bg-emerald-500:hover,
+html[data-theme="light"] button.bg-emerald-500:hover {
+  background-color: #047857 !important;
+}
+
+/* Soft Role Banners in Light Mode */
 html.light [class*="bg-blue-950"],
 html[data-theme="light"] [class*="bg-blue-950"] {
   background-color: #eff6ff !important;
@@ -120,6 +160,14 @@ html[data-theme="light"] [class*="bg-amber-950"] {
   border-color: #fde68a !important;
 }
 
+html.light [class*="bg-rose-950"],
+html[data-theme="light"] [class*="bg-rose-950"] {
+  background-color: #fff1f2 !important;
+  color: #9f1239 !important;
+  border-color: #fecdd3 !important;
+}
+
+/* Accent status text */
 html.light .text-emerald-400,
 html[data-theme="light"] .text-emerald-400 {
   color: #059669 !important;
@@ -135,24 +183,29 @@ html[data-theme="light"] .text-amber-400 {
   color: #d97706 !important;
 }
 
-/* Gradients in Light Mode */
+html.light .text-rose-400,
+html[data-theme="light"] .text-rose-400 {
+  color: #e11d48 !important;
+}
+
+/* Hero section light gradient */
 html.light [class*="from-slate-900"],
 html[data-theme="light"] [class*="from-slate-900"] {
-  --tw-gradient-from: #ffffff !important;
+  --tw-gradient-from: #f8fafc !important;
 }
 html.light [class*="via-slate-950"],
 html[data-theme="light"] [class*="via-slate-950"] {
-  --tw-gradient-stops: var(--tw-gradient-from), #f8fafc, var(--tw-gradient-to) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), #f1f5f9, var(--tw-gradient-to) !important;
 }
 html.light [class*="to-slate-950"],
 html[data-theme="light"] [class*="to-slate-950"] {
-  --tw-gradient-to: #f1f5f9 !important;
+  --tw-gradient-to: #ffffff !important;
 }
 
-/* Soft Box Shadows */
+/* Card elevation & soft drop-shadow */
 html.light [class*="shadow-2xl"],
 html.light [class*="shadow-xl"],
 html[data-theme="light"] [class*="shadow-2xl"],
 html[data-theme="light"] [class*="shadow-xl"] {
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05) !important;
 }
