@@ -3,10 +3,12 @@
 > **Enterprise-grade B2B Commodity Auction, Milestone Escrow Vault, & Supply Chain Financing (SCF) Core**  
 > Tailored for the heavy scrap metal (*besi tua*) industrial ecosystem in Indonesia.
 
-[![Go Version](https://img.shields.io/badge/Go-1.22+-00ADD8?style=flat&logo=go)](https://golang.org)
+[![CI Pipeline](https://github.com/fransalwan/ScrapTech/actions/workflows/ci.yml/badge.svg)](https://github.com/fransalwan/ScrapTech/actions)
+[![Go Version](https://img.shields.io/badge/Go-1.24-00ADD8?style=flat&logo=go)](https://golang.org)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-ACID-336791?style=flat&logo=postgresql)](https://www.postgresql.org)
 [![Vue 3](https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=flat&logo=vuedotjs)](https://vuejs.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC?style=flat&logo=tailwind-css)](https://tailwindcss.com)
+[![Docker](https://img.shields.io/badge/Docker-Compose%20Ready-2496ED?style=flat&logo=docker)](https://www.docker.com)
 [![Accounting](https://img.shields.io/badge/Ledger-Double--Entry%20Zero--Sum-brightgreen)](https://en.wikipedia.org/wiki/Double-entry_bookkeeping)
 
 ---
@@ -98,10 +100,11 @@ In the heavy industrial scrap market (pabrik manufaktur, BUMN, galangan kapal, d
 │   │   └── response/response.go     # Standardized JSON Envelopes
 │   └── README.md                    # Dedicated Backend Documentation
 │
-├── frontend/                        # Frontend B2B Portal & Field PWA (Vue 3 + Vite)
-│   ├── src/views/HomePage.vue       # Live Tender Board, Weighbridge Simulator, & SCF Calc
-│   ├── src/components/Navbar.vue    # High-Density B2B Navigation
-│   └── src/stores/mainStore.js      # Pinia Store State Management
+├── fsjs-p2-v1-iproject-client-fransalwan/   # Frontend B2B Portal & Field PWA (Vue 3)
+│   └── iproject_client/
+│       ├── src/views/HomePage.vue   # Live Tender Board, Weighbridge Simulator, & SCF Calc
+│       ├── src/components/Navbar.vue# High-Density B2B Navigation
+│       └── src/stores/mainStore.js  # Pinia Store State Management
 │
 └── README.md                        # Project Overview & Portfolio Specification
 ```
@@ -145,7 +148,7 @@ go run cmd/api/main.go
 
 ### 2. Frontend (Vue 3 / Vite)
 ```bash
-cd frontend
+cd fsjs-p2-v1-iproject-client-fransalwan/iproject_client
 npm install
 npm run dev
 # Dashboard opens on http://localhost:5173

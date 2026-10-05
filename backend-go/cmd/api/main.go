@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 
@@ -11,6 +12,7 @@ import (
 	"scrapflow-backend/internal/middleware"
 	"scrapflow-backend/internal/repository"
 	"scrapflow-backend/internal/usecase"
+	"scrapflow-backend/internal/worker"
 	"scrapflow-backend/pkg/database"
 	"scrapflow-backend/pkg/response"
 )
@@ -30,6 +32,7 @@ func main() {
 	ledgerRepo := repository.NewLedgerRepository()
 	tenderRepo := repository.NewTenderRepository()
 	weighRepo := repository.NewWeighbridgeRepository()
+	paymentRepo := repository.NewPaymentRepository()
 
 	// 2. Initialize Usecases
 	authUsecase := usecase.NewAuthUsecase(companyRepo, ledgerRepo)
@@ -37,23 +40,35 @@ func main() {
 	weighUsecase := usecase.NewWeighbridgeUsecase(weighRepo, tenderRepo, ledgerRepo, companyRepo)
 	ledgerUsecase := usecase.NewLedgerUsecase(ledgerRepo)
 	financingUsecase := usecase.NewFinancingUsecase(weighRepo, tenderRepo, ledgerRepo, companyRepo)
+	paymentUsecase := usecase.NewPaymentUsecase(paymentRepo, ledgerRepo)
+	agentUsecase := usecase.NewAgentUsecase(weighRepo)
 
-	// 3. Initialize HTTP Handlers
+	// 3. Initialize & Start Background Reconciliation Worker (Audits every 15 mins)
+	reconcileWorker := worker.NewReconciliationWorker(db, paymentUsecase, 15*time.Minute)
+	reconcileWorker.Start()
+	defer reconcileWorker.Stop()
+
+	// 4. Initialize HTTP Handlers
 	authHandler := handler.NewAuthHandler(db, authUsecase, cfg.JWTSecret)
 	tenderHandler := handler.NewTenderHandler(db, tenderUsecase)
 	weighHandler := handler.NewWeighbridgeHandler(db, weighUsecase)
 	ledgerHandler := handler.NewLedgerHandler(db, ledgerUsecase)
 	financingHandler := handler.NewFinancingHandler(db, financingUsecase)
+	paymentHandler := handler.NewPaymentHandler(db, paymentUsecase, cfg.JWTSecret)
+	agentHandler := handler.NewAgentHandler(db, agentUsecase)
 
-	// 4. Setup Engine
+	// 5. Setup Engine
 	r := gin.Default()
 	r.Use(middleware.CORSMiddleware())
 
 	// Health Check
 	r.GET("/health", func(c *gin.Context) {
 		response.Success(c, http.StatusOK, "ScrapFlow Fintech Core API is healthy", gin.H{
-			"version": "1.0.0-fintech-core",
-			"status":  "ONLINE",
+			"version":        "1.0.0-fintech-core",
+			"status":         "ONLINE",
+			"ledger_engine":  "ACTIVE",
+			"audit_worker":   "RUNNING",
+			"ai_agent_layer": "ENABLED",
 		})
 	})
 
@@ -77,18 +92,19 @@ func main() {
 			tendersProtected.Use(middleware.AuthMiddleware(cfg.JWTSecret))
 			{
 				tendersProtected.POST("", tenderHandler.CreateTender)
-				// Bidding requires both Auth and Idempotency-Key
 				tendersProtected.POST("/:id/bid", middleware.IdempotencyMiddleware(), tenderHandler.SubmitBid)
-				// Awarding requires both Auth and Idempotency-Key
 				tendersProtected.POST("/:id/award", middleware.IdempotencyMiddleware(), tenderHandler.AwardTender)
 			}
 		}
 
-		// Weighbridge & Field Settlement Routes
+		// Public Webhook Ingestion (HMAC Signature Verified)
+		apiV1.POST("/payments/webhook", paymentHandler.ProcessWebhook)
+
+		// Protected Operations
 		protectedAPI := apiV1.Group("")
 		protectedAPI.Use(middleware.AuthMiddleware(cfg.JWTSecret))
 		{
-			// Weighbridge Tickets
+			// Weighbridge Tickets & Field Settlement
 			protectedAPI.POST("/contracts/:contract_id/tickets", weighHandler.SubmitTicket)
 			protectedAPI.GET("/contracts/:contract_id/tickets", weighHandler.GetTicketsByContract)
 			protectedAPI.POST("/tickets/:ticket_id/settle", middleware.IdempotencyMiddleware(), weighHandler.SettleTicket)
@@ -102,6 +118,14 @@ func main() {
 			protectedAPI.POST("/financing/apply", financingHandler.ApplyFacility)
 			protectedAPI.GET("/financing/my-facilities", financingHandler.GetMyFacilities)
 			protectedAPI.POST("/financing/:id/disburse", middleware.IdempotencyMiddleware(), financingHandler.DisburseFacility)
+
+			// Payment Gateway & Reconciliation Trigger
+			protectedAPI.POST("/payments/va/create", paymentHandler.CreateVirtualAccount)
+			protectedAPI.POST("/payments/reconcile", paymentHandler.TriggerReconciliation)
+
+			// AI Agents (Weighbridge OCR Anomaly & Tender Spec Parsing)
+			protectedAPI.POST("/agents/ocr-slip", agentHandler.AnalyzeSlip)
+			protectedAPI.POST("/agents/parse-tender", agentHandler.ParseTender)
 		}
 	}
 

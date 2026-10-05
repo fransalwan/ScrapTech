@@ -33,6 +33,7 @@ func InitDB(databaseURL string) (*gorm.DB, error) {
 		&domain.Contract{},
 		&domain.WeighbridgeTicket{},
 		&domain.FinancingFacility{},
+		&domain.PaymentOrder{},
 	)
 	if err != nil {
 		return nil, err
