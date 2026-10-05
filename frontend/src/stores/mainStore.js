@@ -27,15 +27,18 @@ export const useMainStore = defineStore("main", {
     },
 
     toggleTheme() {
-      this.theme = this.theme === "dark" ? "light" : "dark";
-      localStorage.setItem("scrapflow_theme", this.theme);
-      this.applyTheme(this.theme);
-      toast.success(this.theme === "dark" ? "Mode Gelap Aktif" : "Mode Terang Aktif", {
-        description: `Tampilan dialihkan ke ${this.theme === "dark" ? "Dark Mode" : "Light Mode"}.`,
+      const newTheme = this.theme === "dark" ? "light" : "dark";
+      this.theme = newTheme;
+      localStorage.setItem("scrapflow_theme", newTheme);
+      this.applyTheme(newTheme);
+      toast.success(newTheme === "dark" ? "Mode Gelap Aktif" : "Mode Terang Aktif", {
+        description: `Tampilan dialihkan ke ${newTheme === "dark" ? "Dark Mode" : "Light Mode"}.`,
       });
     },
 
     applyTheme(theme) {
+      this.theme = theme;
+      localStorage.setItem("scrapflow_theme", theme);
       if (theme === "light") {
         document.documentElement.classList.add("light");
         document.documentElement.classList.remove("dark");
@@ -107,7 +110,6 @@ export const useMainStore = defineStore("main", {
     },
 
     handleLogout() {
-      // Hapus token sesi login tanpa menghapus preferensi tema
       localStorage.removeItem("access_token");
       localStorage.removeItem("user_email");
       localStorage.removeItem("user_name");

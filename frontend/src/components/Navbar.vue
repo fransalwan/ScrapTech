@@ -19,7 +19,7 @@ export default {
       }
     },
     getRoleLabel(role) {
-      if (role === "PABRIK_MANAGER") return "Pabrik / Penyedia";
+      if (role === "PABRIK_MANAGER") return "Pabrik / Seller";
       if (role === "LAPAK_OWNER") return "Juragan Lapak";
       if (role === "WEIGH_OPERATOR") return "Petugas Timbangan";
       return role || "Tamu";
@@ -84,7 +84,7 @@ export default {
           >
             <Sun v-if="theme === 'dark'" class="w-4 h-4 text-amber-400" />
             <Moon v-else class="w-4 h-4 text-indigo-500" />
-            <span class="text-[11px] font-semibold">
+            <span class="text-[11px] font-semibold hidden sm:inline">
               {{ theme === 'dark' ? 'Mode Terang' : 'Mode Gelap' }}
             </span>
           </button>

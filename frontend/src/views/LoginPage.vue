@@ -39,29 +39,32 @@ export default {
       demoAccounts: [
         {
           role: "PABRIK_MANAGER",
-          title: "Pabrik / Seller (PT Krakatau)",
+          title: "Pabrik / Pemilik Scrap (PT Krakatau)",
+          desc: "Buat tender lelang, pilih pemenang SPK, terima pencairan dana",
           email: "budi@krakatausteel.co.id",
           password: "password123",
           icon: "Building2",
-          badge: "Issuer Lelang",
+          badge: "Penyedia Lelang",
           color: "border-blue-500/30 bg-blue-950/20 text-blue-400 hover:border-blue-500/60"
         },
         {
           role: "LAPAK_OWNER",
-          title: "Juragan Lapak (CV Besi Abadi)",
+          title: "Juragan Lapak Besi Tua (CV Besi Abadi)",
+          desc: "Tawar lelang, kunci jaminan bid-bond, ajukan talangan modal SCF",
           email: "haji.slamet@besiabadi.com",
           password: "password123",
           icon: "Truck",
-          badge: "Bidder & SCF",
+          badge: "Peserta & Pembeli",
           color: "border-emerald-500/30 bg-emerald-950/20 text-emerald-400 hover:border-emerald-500/60"
         },
         {
           role: "WEIGH_OPERATOR",
-          title: "Operator Timbangan Lapangan",
+          title: "Petugas Jembatan Timbang Lapangan",
+          desc: "Input tiket timbang bruto/tara, deteksi kecurangan AI, pencairan per rit",
           email: "operator@timbangan.com",
           password: "password123",
           icon: "Scale",
-          badge: "Field Weighbridge",
+          badge: "Operator Lapangan",
           color: "border-amber-500/30 bg-amber-950/20 text-amber-400 hover:border-amber-500/60"
         }
       ]
@@ -96,16 +99,18 @@ export default {
       <button
         type="button"
         @click="toggleTheme"
-        :title="theme === 'dark' ? 'Aktifkan Mode Terang' : 'Aktifkan Mode Gelap'"
-        class="px-3 py-1.5 rounded-xl border border-slate-800 bg-slate-900/80 text-xs text-slate-300 hover:text-white flex items-center space-x-1.5 backdrop-blur shadow-sm transition"
+        :title="theme === 'dark' ? 'Aktifkan Mode Terang (Light Mode)' : 'Aktifkan Mode Gelap (Dark Mode)'"
+        class="px-3 py-1.5 rounded-xl border border-slate-800 bg-slate-900/90 text-xs text-slate-300 hover:text-white flex items-center space-x-2 backdrop-blur shadow-md transition"
       >
         <Sun v-if="theme === 'dark'" class="w-4 h-4 text-amber-400" />
         <Moon v-else class="w-4 h-4 text-indigo-500" />
-        <span class="text-[11px] font-semibold">{{ theme === 'dark' ? 'Mode Terang' : 'Mode Gelap' }}</span>
+        <span class="text-[11px] font-semibold">
+          {{ theme === 'dark' ? 'Mode Terang' : 'Mode Gelap' }}
+        </span>
       </button>
     </div>
 
-    <!-- Background Glow Effect -->
+    <!-- Background Glow -->
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
     <!-- Header & Branding -->
@@ -116,11 +121,11 @@ export default {
         </div>
         <div class="text-left">
           <span class="text-2xl font-black tracking-tight text-white">Scrap<span class="text-emerald-400">Flow</span></span>
-          <span class="block text-[10px] uppercase font-bold tracking-widest text-emerald-400/80">Commodity Escrow & SCF</span>
+          <span class="block text-[10px] uppercase font-bold tracking-widest text-emerald-400/80">Platform Tender & Pembiayaan Besi Tua</span>
         </div>
       </RouterLink>
-      <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-100">Masuk ke Portal B2B</h1>
-      <p class="text-xs text-slate-400">Akses lelang terverifikasi, escrow vault, dan pencairan timbangan.</p>
+      <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-100">Masuk ke Akun Anda</h1>
+      <p class="text-xs text-slate-400">Akses lelang terverifikasi, rekening bersama (escrow), dan pencairan timbangan.</p>
     </div>
 
     <!-- Main Card Form -->
@@ -130,7 +135,7 @@ export default {
         <!-- Standard Form -->
         <form @submit.prevent="onSubmit" class="space-y-4">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Email Perusahaan / Akun</label>
+            <label class="block text-xs font-semibold text-slate-300 mb-1.5">Alamat Email Terdaftar</label>
             <div class="relative">
               <Mail class="absolute left-3.5 top-3 w-4 h-4 text-slate-500" />
               <input
@@ -165,8 +170,8 @@ export default {
             :disabled="loading"
             class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-sm transition shadow-lg shadow-emerald-500/20 flex items-center justify-center space-x-2 disabled:opacity-50"
           >
-            <span v-if="!loading">Masuk Sekarang</span>
-            <span v-else>Memverifikasi...</span>
+            <span v-if="!loading">Masuk ke Sistem</span>
+            <span v-else>Memverifikasi Akun...</span>
             <ArrowRight class="w-4 h-4" />
           </button>
         </form>
@@ -174,31 +179,34 @@ export default {
         <!-- Divider -->
         <div class="relative flex items-center justify-center">
           <div class="border-t border-slate-800 w-full"></div>
-          <span class="bg-slate-900 px-3 text-[11px] uppercase tracking-wider text-slate-500 font-semibold absolute">
-            Demo 1-Click Login
+          <span class="bg-slate-900 px-3 text-[11px] uppercase tracking-wider text-slate-400 font-semibold absolute">
+            Pilih Peran Pengguna (1-Klik Demo)
           </span>
         </div>
 
         <!-- 1-Click Demo Account Switcher -->
-        <div class="space-y-2">
-          <p class="text-[11px] text-slate-400 text-center font-medium">Klik salah satu akun demo untuk menguji peran aktor:</p>
+        <div class="space-y-2.5">
+          <p class="text-[11px] text-slate-400 text-center font-medium">Klik profil di bawah untuk menguji hak akses masing-masing peran:</p>
           
-          <div class="grid grid-cols-1 gap-2">
+          <div class="grid grid-cols-1 gap-2.5">
             <button
               v-for="acc in demoAccounts"
               :key="acc.role"
               type="button"
               @click="selectDemo(acc)"
-              :class="['w-full p-2.5 rounded-xl border flex items-center justify-between text-left transition group', acc.color]"
+              :class="['w-full p-3 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between text-left transition group gap-2', acc.color]"
             >
-              <div class="flex items-center space-x-2.5">
-                <component :is="acc.icon" class="w-4 h-4 flex-shrink-0" />
+              <div class="flex items-start space-x-2.5">
+                <component :is="acc.icon" class="w-4 h-4 flex-shrink-0 mt-0.5" />
                 <div>
-                  <p class="text-xs font-bold text-slate-100 group-hover:text-emerald-300 transition">{{ acc.title }}</p>
-                  <p class="text-[10px] text-slate-400 font-mono">{{ acc.email }}</p>
+                  <div class="flex items-center space-x-2">
+                    <p class="text-xs font-bold text-slate-100 group-hover:text-emerald-300 transition">{{ acc.title }}</p>
+                  </div>
+                  <p class="text-[10px] text-slate-400 leading-tight mt-0.5">{{ acc.desc }}</p>
+                  <p class="text-[10px] text-slate-500 font-mono mt-1">{{ acc.email }}</p>
                 </div>
               </div>
-              <span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-900/80 border border-slate-700/60 font-semibold">
+              <span class="self-start sm:self-center text-[10px] px-2 py-0.5 rounded-md bg-slate-900/90 border border-slate-700 font-semibold whitespace-nowrap">
                 {{ acc.badge }}
               </span>
             </button>
@@ -206,11 +214,11 @@ export default {
         </div>
 
         <!-- Register Link -->
-        <div class="text-center pt-1 border-t border-slate-800/80">
+        <div class="text-center pt-2 border-t border-slate-800/80">
           <p class="text-xs text-slate-400">
-            Belum terdaftar sebagai rekanan?
+            Perusahaan Anda belum terdaftar?
             <RouterLink to="/register" class="text-emerald-400 font-semibold hover:underline ml-1">
-              Daftar Profil Perusahaan & KYC
+              Daftar Profil Usaha & Verifikasi KYC
             </RouterLink>
           </p>
         </div>
@@ -219,21 +227,21 @@ export default {
     </div>
 
     <!-- Credibility & Trust Badges Footer -->
-    <div class="w-full max-w-md mt-6 grid grid-cols-3 gap-2 text-center text-[10px] text-slate-500 z-10">
-      <div class="flex flex-col items-center space-y-1 p-2 rounded-lg bg-slate-900/40 border border-slate-800/60">
+    <div class="w-full max-w-md mt-6 grid grid-cols-3 gap-2 text-center text-[10px] text-slate-400 z-10">
+      <div class="flex flex-col items-center space-y-1 p-2 rounded-lg bg-slate-900/50 border border-slate-800">
         <ShieldCheck class="w-4 h-4 text-emerald-400" />
-        <span class="font-medium text-slate-300">OJK Sandbox</span>
-        <span class="text-[9px] text-slate-500">Commodity Escrow</span>
+        <span class="font-medium text-slate-200">Sandbox OJK</span>
+        <span class="text-[9px] text-slate-500">Escrow Komoditas</span>
       </div>
-      <div class="flex flex-col items-center space-y-1 p-2 rounded-lg bg-slate-900/40 border border-slate-800/60">
+      <div class="flex flex-col items-center space-y-1 p-2 rounded-lg bg-slate-900/50 border border-slate-800">
         <Lock class="w-4 h-4 text-emerald-400" />
-        <span class="font-medium text-slate-300">Double-Entry</span>
-        <span class="text-[9px] text-slate-500">Immutable Ledger</span>
+        <span class="font-medium text-slate-200">Buku Besar Imbang</span>
+        <span class="text-[9px] text-slate-500">Audit Zero-Sum</span>
       </div>
-      <div class="flex flex-col items-center space-y-1 p-2 rounded-lg bg-slate-900/40 border border-slate-800/60">
+      <div class="flex flex-col items-center space-y-1 p-2 rounded-lg bg-slate-900/50 border border-slate-800">
         <Scale class="w-4 h-4 text-emerald-400" />
-        <span class="font-medium text-slate-300">ISO 17025</span>
-        <span class="text-[9px] text-slate-500">Weighbridge Calibrated</span>
+        <span class="font-medium text-slate-200">ISO 17025</span>
+        <span class="text-[9px] text-slate-500">Tera Jembatan Timbang</span>
       </div>
     </div>
 
