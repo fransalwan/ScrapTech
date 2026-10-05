@@ -71,14 +71,17 @@ export default {
   },
   methods: {
     ...mapActions(useMainStore, ["handleLogin"]),
-    selectDemo(acc) {
+    async selectDemo(acc) {
       this.email = acc.email;
       this.password = acc.password;
-      this.onSubmit();
+      await this.onSubmit();
     },
     async onSubmit() {
       if (!this.email || !this.password) return;
-      await this.handleLogin(this.email, this.password);
+      const ok = await this.handleLogin(this.email, this.password);
+      if (ok) {
+        this.$router.push("/");
+      }
     }
   }
 };
