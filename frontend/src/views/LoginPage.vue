@@ -120,7 +120,7 @@ export default {
           ⚡
         </div>
         <div class="text-left">
-          <span class="text-2xl font-black tracking-tight text-white">Scrap<span class="text-emerald-400">Flow</span></span>
+          <span class="text-2xl font-black tracking-tight text-white">Scrap<span class="text-emerald-400">Tech</span></span>
           <span class="block text-[10px] uppercase font-bold tracking-widest text-emerald-400/80">Platform Tender & Pembiayaan Besi Tua</span>
         </div>
       </RouterLink>

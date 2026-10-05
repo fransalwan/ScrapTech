@@ -1,4 +1,4 @@
-# 🏛️ ScrapFlow — B2B Scrap Metal Tender & Commodity Fintech Platform
+# 🏛️ ScrapTech — Platform B2B Tender & Pembiayaan Besi Tua
 
 > **Enterprise-grade B2B Commodity Auction, Milestone Escrow Vault, & Supply Chain Financing (SCF) Core**  
 > Tailored for the heavy scrap metal (*besi tua*) industrial ecosystem in Indonesia.

@@ -461,7 +461,7 @@ export default {
               <span>Buat Tender Baru</span>
             </button>
             <span class="text-xs px-2.5 py-1 bg-slate-800 border border-slate-700 text-slate-300 rounded-lg font-mono">
-              Golang Core Engine
+              Terverifikasi Sistem
             </span>
           </div>
         </div>
@@ -907,7 +907,7 @@ export default {
         <!-- QR Display -->
         <div class="w-44 h-44 mx-auto bg-white p-3 rounded-xl flex items-center justify-center shadow-lg">
           <div class="w-full h-full border-4 border-slate-950 flex flex-col items-center justify-center font-mono text-[9px] text-slate-950 font-bold p-1 leading-tight">
-            <span>[SCRAPFLOW-SPK]</span>
+            <span>[SCRAPTECH-SPK]</span>
             <span class="mt-2">{{ qrModal.tender?.number }}</span>
             <span class="mt-1">IZIN-TIMBANG-VALID</span>
             <div class="mt-2 w-16 h-1 bg-slate-950"></div>

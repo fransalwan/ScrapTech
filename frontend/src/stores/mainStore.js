@@ -38,6 +38,7 @@ export const useMainStore = defineStore("main", {
     applyTheme(theme) {
       this.theme = theme;
       localStorage.setItem("scrapflow_theme", theme);
+      document.documentElement.setAttribute("data-theme", theme);
       if (theme === "light") {
         document.documentElement.classList.add("light");
         document.documentElement.classList.remove("dark");
