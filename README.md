@@ -228,6 +228,39 @@ Aplikasi telah dilengkapi profil demo bawaan yang dapat langsung digunakan tanpa
 
 ---
 
+## 🗺️ Peta Jalan & Rancangan Pengembangan Selanjutnya (*Engineering & Product Roadmap*)
+
+Untuk meningkatkan kapabilitas platform dari tahap MVP Fintech menuju infrastruktur B2B lelang logam & *supply chain financing* skala *enterprise*, berikut rancangan modul pengembangan selanjutnya:
+
+### 1. Keandalan & Keamanan Transaksi Finansial (*Fintech Hardening*)
+- **Transactional Outbox Pattern & Event Broker (Kafka / RabbitMQ):** Menjamin zero-loss status transaksi saat terjadi gangguan jaringan antara layanan core ledger dan penyedia perbankan.
+- **Integrasi Pencairan Riil Otomatis (*Disbursement / Payout API*):** Integrasi langsung ke gateway transfer perbankan (Midtrans Iris / Xendit Disbursal / H2H Bank) agar dana hasil timbang dapat ditarik (*payout*) 24/7 seketika tiket berstatus `SETTLED`.
+- **Audit Trail Kriptografis (*Tamper-Evident Ledger Hashing*):** Mengimplementasikan rantai hash kriptografis SHA-256 pada setiap baris jurnal buku besar (`previous_hash` & `current_hash`), sehingga mutasi data historis mustahil dimanipulasi tanpa merusak integritas sistem.
+
+### 2. Otomasi & IoT Jembatan Timbang Lapangan (*Smart Yard Operation*)
+- **Modbus / Serial RS-232 IoT Bridge:** Micro-daemon Go/Rust untuk membaca sensor timbangan industri (*Avery Weigh-Tronix*, *Mettler Toledo*) secara langsung melalui serial port gerbang pabrik tanpa input manual operator.
+- **Kamera ANPR (*Automatic Number Plate Recognition*) & Snapshot CCTV:** Kamera gerbang mendeteksi pelat nomor armada truk secara otomatis dan mengambil snapshot visual muatan scrap saat di atas timbangan untuk bukti digital yang tak terbantahkan.
+
+### 3. Mesin Pembiayaan Rantai Pasok (*Supply Chain Financing / SCF Engine*)
+- **Penilaian Risiko & Skor Kredit Otomatis (*Credit Scoring Engine*):** Mengalkulasi kelayakan batas plafon pinjaman modal kerja berdasarkan riwayat ketepatan pengiriman dan deviasi tonase timbangan vendor di masa lampau.
+- **Kontrak Digital & Tanda Tangan Elektronik Sah (PrivyID / e-Meterai Peruri):** Penerbitan SPK digital berkekuatan hukum perdata resmi dengan meterai elektronik terverifikasi PSrE.
+- **Pencairan Bertahap Berbasis Progres (*Milestone-based Tranche*):** Dana talangan modal kerja dicairkan secara bertahap langsung ke akun escrow lelang seiring kedatangan armada truk di lokasi pabrik.
+
+### 4. Lapisan Kecerdasan Buatan Lanjutan (*Multimodal AI Layer*)
+- **Multimodal OCR Slip Timbangan Fisik (Gemini 1.5 Flash / Vision):** Memvalidasi foto tiket timbangan berstempel cap basah fisik dan mencocokkan angka cetak timbangan dengan data yang diinput ke portal.
+- **Prediktor Tren Harga Scrap Logam (*Market Price Intelligence*):** *Scraping* dan agregasi indeks harga komoditas besi tua dari bursa logam internasional (LME / London Metal Exchange) dan pabrik peleburan nasional untuk memberikan rekomendasi batas penawaran (*price floor/ceiling*).
+
+### 5. Aplikasi Lapangan Mobile & *Offline-First* PWA
+- **PWA / Mobile App untuk Operator & Surveyor:** Fitur *offline-first* dengan penyimpanan lokal (IndexedDB) agar penimbangan di area dermaga/pabrik tanpa sinyal internet tetap dapat berjalan dan otomatis tersinkronisasi saat kembali online.
+- **Geofencing GPS Armada Truk:** Memvalidasi bahwa penimbangan hanya dapat dilakukan jika armada truk terdeteksi berada di dalam koordinat radius area timbangan pabrik.
+
+### 6. Infrastruktur Enterprise & Observabilitas (*DevOps*)
+- **Containerization Penuh:** Setup `docker-compose.yml` multi-stage untuk orkestrasi instan backend Golang, frontend Vue, dan database PostgreSQL.
+- **Observabilitas Ledger (Prometheus & Grafana):** Dashboard metrik real-time untuk memantau saldo total dana escrow yang terkunci, latensi settlement timbangan, dan sistem alarm otomatis jika terjadi ketidakseimbangan jurnal umum.
+- **Automated CI/CD Testing Pipeline:** Pengujian otomatis lelang dari pembuatan tender hingga mutasi buku besar menggunakan GitHub Actions dan Playwright E2E.
+
+---
+
 ## 👨‍💻 Pengembang & Kontak
 - **Pengembang:** Frans Alwan
 - **Fokus Keahlian:** Rekayasa Sistem Finansial, Backend Berkinerja Tinggi & Full-Stack (Golang, PostgreSQL, Vue 3, Clean Architecture)
