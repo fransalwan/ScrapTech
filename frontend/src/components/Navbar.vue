@@ -9,6 +9,10 @@ export default {
   components: { RouterLink, LogOut, User, Building2, ShieldCheck, Sun, Moon },
   methods: {
     ...mapActions(useMainStore, ["handleLogout", "handleLogin", "toggleTheme"]),
+    onLogout() {
+      this.handleLogout();
+      this.$router.push("/login");
+    },
     quickSwitchRole(role) {
       if (role === "PABRIK_MANAGER") {
         this.handleLogin("budi@krakatausteel.co.id", "password123");
@@ -136,7 +140,7 @@ export default {
 
             <!-- Logout Button -->
             <button
-              @click="handleLogout"
+              @click="onLogout"
               title="Keluar dari Sistem"
               class="p-2 text-slate-400 hover:text-rose-400 hover:bg-slate-800 rounded-lg transition"
             >

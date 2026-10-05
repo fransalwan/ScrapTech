@@ -2,7 +2,7 @@
 import { mapActions, mapState } from "pinia";
 import { useMainStore } from "../stores/mainStore";
 import { RouterLink } from "vue-router";
-import { Building2, ShieldCheck, Mail, Lock, User, FileText, ArrowRight, Sun, Moon } from "lucide-vue-next";
+import { Building2, ShieldCheck, Mail, Lock, User, FileText, ArrowRight } from "lucide-vue-next";
 
 export default {
   name: "RegisterPage",
@@ -14,9 +14,7 @@ export default {
     Lock,
     User,
     FileText,
-    ArrowRight,
-    Sun,
-    Moon
+    ArrowRight
   },
   data() {
     return {
@@ -30,10 +28,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(useMainStore, ["loading", "theme"]),
+    ...mapState(useMainStore, ["loading"]),
   },
   methods: {
-    ...mapActions(useMainStore, ["handleRegister", "toggleTheme"]),
+    ...mapActions(useMainStore, ["handleRegister"]),
     onEntityTypeChange() {
       if (this.entityType === "PABRIK") {
         this.role = "PABRIK_MANAGER";
@@ -59,20 +57,6 @@ export default {
 <template>
   <div class="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center items-center px-4 py-8 sm:px-6 lg:px-8 font-sans selection:bg-emerald-500 selection:text-slate-950 relative overflow-hidden">
     
-    <!-- Theme Toggle at Top Right -->
-    <div class="absolute top-4 right-4 z-30">
-      <button
-        type="button"
-        @click="toggleTheme"
-        :title="theme === 'dark' ? 'Aktifkan Mode Terang' : 'Aktifkan Mode Gelap'"
-        class="px-3 py-1.5 rounded-xl border border-slate-800 bg-slate-900/90 text-xs text-slate-300 hover:text-white flex items-center space-x-2 backdrop-blur shadow-md transition"
-      >
-        <Sun v-if="theme === 'dark'" class="w-4 h-4 text-amber-400" />
-        <Moon v-else class="w-4 h-4 text-indigo-500" />
-        <span class="text-[11px] font-semibold">{{ theme === 'dark' ? 'Mode Terang' : 'Mode Gelap' }}</span>
-      </button>
-    </div>
-
     <div class="w-full max-w-lg text-center space-y-3 z-10">
       <RouterLink to="/" class="inline-flex items-center space-x-2.5">
         <div class="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center font-bold text-slate-950 text-xl shadow-lg shadow-emerald-500/30">

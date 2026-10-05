@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import router from "../router";
 import { toast } from "vue-sonner";
 
 const baseUrl = "http://localhost:8080/api/v1";
@@ -76,9 +75,9 @@ export const useMainStore = defineStore("main", {
             description: `Login sebagai ${userPayload.legal_name} (${userPayload.role})`,
           });
 
-          router.push("/");
           return true;
         }
+        return false;
       } catch (err) {
         const errorMsg = err.response?.data?.message || "Email atau password tidak sesuai";
         toast.error("Gagal Masuk", {
@@ -98,12 +97,14 @@ export const useMainStore = defineStore("main", {
           toast.success("Registrasi Perusahaan Berhasil!", {
             description: "Silakan login dengan akun yang baru didaftarkan.",
           });
-          router.push("/login");
+          return true;
         }
+        return false;
       } catch (err) {
         toast.error("Registrasi Gagal", {
           description: err.response?.data?.message || "Periksa data legalitas & input Anda",
         });
+        return false;
       } finally {
         this.loading = false;
       }
@@ -122,8 +123,7 @@ export const useMainStore = defineStore("main", {
       toast.info("Sesi Berakhir", {
         description: "Anda telah berhasil keluar dari sistem ScrapFlow.",
       });
-
-      router.push("/login");
+      return true;
     },
 
     async fetchTenders() {

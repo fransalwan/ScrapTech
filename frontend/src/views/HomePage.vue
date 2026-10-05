@@ -1,7 +1,6 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
-import { RouterLink } from "vue-router";
 import { mapActions, mapState } from "pinia";
 import { useMainStore } from "../stores/mainStore";
 import { toast } from "vue-sonner";
@@ -28,7 +27,6 @@ import {
 export default {
   name: "HomePage",
   components: {
-    RouterLink,
     Navbar,
     Footer,
     Scale,
@@ -177,7 +175,6 @@ export default {
   computed: {
     ...mapState(useMainStore, ["isLogin", "user"]),
     userRole() {
-      if (!this.isLogin) return "GUEST";
       return this.user?.role || "LAPAK_OWNER";
     },
     // Perhitungan Jembatan Timbang
@@ -353,7 +350,7 @@ export default {
     </div>
 
     <!-- ROLE NOTIFICATION & CAPABILITY BANNER -->
-    <div v-if="isLogin" :class="[
+    <div :class="[
       'py-2.5 px-4 text-xs border-b font-medium flex items-center justify-between',
       userRole === 'PABRIK_MANAGER' ? 'bg-blue-950/70 border-blue-800 text-blue-200' :
       userRole === 'LAPAK_OWNER' ? 'bg-emerald-950/70 border-emerald-800 text-emerald-200' :
@@ -366,7 +363,7 @@ export default {
             <strong>Hak Akses Aktif: {{ user.companyName || "Pengguna" }}</strong>
             <span v-if="userRole === 'PABRIK_MANAGER'"> — Mode Penyedia Lelang (Pabrik). Anda memiliki wewenang menerbitkan tender dan menunjuk pemenang SPK.</span>
             <span v-else-if="userRole === 'LAPAK_OWNER'"> — Mode Penampung (Juragan Lapak). Anda memiliki wewenang menawar lelang scrap dan mengajukan talangan modal kerja (SCF).</span>
-            <span v-else-if="userRole === 'WEIGH_OPERATOR'"> — Mode Pos Timbangan Lapangan. Anda bertugas mencatat bruto/tara dan mengeksekusi pencairan timbang per rit truk.</span>
+            <span v-else> — Mode Pos Timbangan Lapangan. Anda bertugas mencatat bruto/tara dan mengeksekusi pencairan timbang per rit truk.</span>
           </span>
         </div>
         <div v-if="userRole === 'PABRIK_MANAGER'" class="sm:self-end">
@@ -378,17 +375,6 @@ export default {
             <span>+ Buat Tender Baru</span>
           </button>
         </div>
-      </div>
-    </div>
-    <div v-else class="py-2.5 px-4 text-xs border-b border-slate-800 bg-slate-900/90 text-slate-300">
-      <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-2">
-        <div class="flex items-center space-x-2">
-          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span>Anda sedang dalam mode pratinjau publik. Masuk untuk menguji fitur peran <strong>Pabrik Lelang</strong>, <strong>Juragan Lapak</strong>, atau <strong>Operator Timbangan</strong>.</span>
-        </div>
-        <RouterLink to="/login" class="px-3 py-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg text-xs transition shadow-sm">
-          Pilih Akun Demo & Masuk →
-        </RouterLink>
       </div>
     </div>
 
